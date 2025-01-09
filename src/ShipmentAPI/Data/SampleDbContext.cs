@@ -1,4 +1,6 @@
-﻿using MassTransit;
+﻿
+
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
 
 namespace ShipmentAPI.Data

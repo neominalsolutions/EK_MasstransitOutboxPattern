@@ -19,6 +19,13 @@ builder.Services.AddMassTransit(opt =>
   {
     config.Host(builder.Configuration.GetConnectionString("RabbitConn"));
     config.UseMessageRetry(c => c.Interval(3, TimeSpan.FromSeconds(1)));
+
+    config.ReceiveEndpoint("shipment_queue",x =>
+    {
+      x.ConfigureConsumer<ShipmentCreatedConsumer>(context);
+      x.BindDeadLetterQueue("dlq_shipment_exchange", "dlq_shipment_queue");
+    });
+
     config.ConfigureEndpoints(context);
   });
 
